@@ -1,0 +1,27 @@
+---
+title: "<center>Tarea 2</center>"
+author: "Francisco Fernández"
+format: 
+  html:
+    toc: true  
+    toc-title: "Ítems"
+theme:
+  light: flatly
+  dark: darkly
+
+editor: visual
+---
+
+## Pregunta 1
+
+Dentro de este contexto, los valores que podrían tomar A y B estarian dentro de....
+
+## Pregunta 2
+
+## Pregunta 3
+
+En este caso, el valor de C y D influyen en que....
+
+## Pregunta 4
+
+Se comparan todos los modelos
