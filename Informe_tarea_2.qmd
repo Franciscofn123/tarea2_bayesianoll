@@ -14,9 +14,21 @@ editor: visual
 
 ## Pregunta 1
 
-Dentro de este contexto, los valores que podrían tomar A y B estarian dentro de....
+Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de $\mu_\theta$, de tal forma que si A $\approx 0$, este parametro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo $\theta_t$ esten centrados muy cercas entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=100, esto llevaria a que $\mu_\theta$ tenga una mayor varianza y esto probocaría que los valores de cada $\theta_t$ no esten de cierta forma trasladados diferentemente los unos con los otros.
+
+Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de $\theta_t$, por lo que si B tiene valores cercanos a 0, implicaria que las distribuciones de $\theta_t$ tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podria provocar que las varianzas de $\theta_t$ sean muy grandes.
+
+Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, $\mu_\theta$ tenga suficientemente flexibilidad al momento de ser simulado, al igual que para $\sigma^2_\theta$ , el valor que se da para B, implica que el maximo valor de $\sigma^2_\theta$ es 100, lo cual es una varianza bastante significativa en este contexto para $\theta_t$ y de esta forma con los valores seleccionados se logran prioris vagas.
 
 ## Pregunta 2
+
+Cuando se ajusta primero para el modelo con $\theta_t$ identicos, se tiene que la densidad de $\pi_t$ a posteriori es...
+
+y para el caso en que los $\theta_t$ son independientes, las densidades para $\pi_t$ son....
+
+El siguiente gráfico une las densidades mencionadas...
+
+Se puede apreciar que....
 
 ## Pregunta 3
 

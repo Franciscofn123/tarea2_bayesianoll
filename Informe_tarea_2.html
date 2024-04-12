@@ -37,6 +37,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="Informe_tarea_2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="Informe_tarea_2_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -86,10 +115,16 @@ Tarea 2<br>
 
 <section id="pregunta-1" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-1">Pregunta 1</h2>
-<p>Dentro de este contexto, los valores que podrían tomar A y B estarian dentro de….</p>
+<p>Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de <span class="math inline">\(\mu_\theta\)</span>, de tal forma que si A <span class="math inline">\(\approx 0\)</span>, este parametro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo <span class="math inline">\(\theta_t\)</span> esten centrados muy cercas entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=100, esto llevaria a que <span class="math inline">\(\mu_\theta\)</span> tenga una mayor varianza y esto probocaría que los valores de cada <span class="math inline">\(\theta_t\)</span> no esten de cierta forma trasladados diferentemente los unos con los otros.</p>
+<p>Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de <span class="math inline">\(\theta_t\)</span>, por lo que si B tiene valores cercanos a 0, implicaria que las distribuciones de <span class="math inline">\(\theta_t\)</span> tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podria provocar que las varianzas de <span class="math inline">\(\theta_t\)</span> sean muy grandes.</p>
+<p>Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, <span class="math inline">\(\mu_\theta\)</span> tenga suficientemente flexibilidad al momento de ser simulado, al igual que para <span class="math inline">\(\sigma^2_\theta\)</span> , el valor que se da para B, implica que el maximo valor de <span class="math inline">\(\sigma^2_\theta\)</span> es 100, lo cual es una varianza bastante significativa en este contexto para <span class="math inline">\(\theta_t\)</span> y de esta forma con los valores seleccionados se logran prioris vagas.</p>
 </section>
 <section id="pregunta-2" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-2">Pregunta 2</h2>
+<p>Cuando se ajusta primero para el modelo con <span class="math inline">\(\theta_t\)</span> identicos, se tiene que la densidad de <span class="math inline">\(\pi_t\)</span> a posteriori es…</p>
+<p>y para el caso en que los <span class="math inline">\(\theta_t\)</span> son independientes, las densidades para <span class="math inline">\(\pi_t\)</span> son….</p>
+<p>El siguiente gráfico une las densidades mencionadas…</p>
+<p>Se puede apreciar que….</p>
 </section>
 <section id="pregunta-3" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-3">Pregunta 3</h2>
