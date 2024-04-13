@@ -31,12 +31,11 @@ Cuando se ajusta primero para el modelo con $\theta_t$ identicos, se tiene que l
 #| warning: false
 #| output: false
 #| echo: false
-Ni <- c(1183,1510,1597,1924,1178,1324,2173,845)
-yi <- c(554,701,749,868,516,573,978,399)
+Ni <- c(1183,1510,1597,1924,1178,1324,2173,845,1450)
+yi <- c(554,701,749,868,516,573,978,399,NA)
 library(rjags)
 
-temp_file <- tempfile()
-sink(temp_file) 
+
 model_texto2 <- "model{
     #hiperparametros
     #A es la varianza de mu
@@ -52,7 +51,9 @@ model_texto2 <- "model{
     }
     theta~dnorm(mu,1/sigma^2)
     pi<- exp(theta)/(1+exp(theta))
+    yi[9] ~ dbin(pi, Ni[9]) 
 }"
+
 
 model_data2 <- list(Ni = Ni,
                    yi = yi, N = 8)
@@ -62,27 +63,9 @@ model2 <- jags.model(textConnection(model_texto2),
                     ,n.adapt = 500)
 
 mcmc_samples2= coda.samples(model2 , 
-                           variable.names=c("pi")
+                           variable.names=c("pi","theta","yi")
                            ,n.iter=6000 )
 
-sink()
-```
-
-```{r}
-#| echo: false
-plot(density(mcmc_samples2[[1]]),main = "Densidad de P")
-```
-
-y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son
-
-```{r}
-#| message: false
-#| warning: false
-#| output: false
-#| echo: false
-
-temp_file <- tempfile()
-sink(temp_file) 
 model_texto <- "model{
     #hiperparametros
     #A es la varianza de mu
@@ -98,7 +81,10 @@ model_texto <- "model{
        theta[i]~dnorm(mu,1/sigma^2)
        pi[i] <- exp(theta[i])/(1+exp(theta[i]))
     }
-
+    #prediccion
+    theta[9]~dnorm(mu,1/sigma^2)
+    pi[9] <- exp(theta[9])/(1+exp(theta[9]))
+    yi[9]~dbin(pi[9],Ni[9])
 }"
 
 model_data <- list(Ni = Ni,
@@ -109,13 +95,21 @@ model <- jags.model(textConnection(model_texto),
                      ,n.adapt = 500)
 
 mcmc_samples= coda.samples(model , 
-                             variable.names=c("pi")
+                             variable.names=c("pi","theta","yi")
                              ,n.iter=6000 )
 
-sink()
+
 ```
 
-```{r}
+```{r,fig.width=9, fig.height=5}
+#| echo: false
+plot(density(mcmc_samples2[[1]][,1]),main = "Densidad de P")
+
+```
+
+y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son
+
+```{r,fig.width=9, fig.height=5}
 #| echo: false
 plot(density(mcmc_samples[[1]][,1]),xlim=c(0.395,0.55)
      ,ylim=c(0,60),main = "Densidades de cada Pi")
@@ -133,10 +127,10 @@ lines(density(mcmc_samples[[1]][,8]), col = "indianred1")
 
 El siguiente gráfico une las densidades mencionadas.
 
-```{r}
+```{r,fig.width=9, fig.height=5}
 #| echo: false
-
-plot(density(mcmc_samples2[[1]]),xlim=c(0.4,0.51))
+plot(density(mcmc_samples2[[1]][,1]),xlim=c(0.4,0.51),
+     main="Densidades de Pi, de ambos modelos")
 lines(density(mcmc_samples[[1]][,2]), col = "red",lty=2,lwd=0.5)
 lines(density(mcmc_samples[[1]][,3]), col = "#0000CD",lty=2,lwd=0.5)
 lines(density(mcmc_samples[[1]][,4]), col = "burlywood3",lty=2,lwd=0.5)
@@ -161,8 +155,7 @@ Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente li
 #| output: false
 #| echo: false
 
-temp_file <- tempfile()
-sink(temp_file) 
+
 model_texto3 <- "model{
     #hiperparametros
     #C es la varianza de theta[1]
@@ -179,6 +172,10 @@ model_texto3 <- "model{
        theta[i]~dnorm(theta[i-1],1/sigma^2)
        pi[i] <- exp(theta[i])/(1+exp(theta[i]))
     }
+    #predicción
+    yi[9] ~ dbin(pi[9], Ni[9]) 
+    theta[9]~dnorm(theta[8],1/sigma^2)
+    pi[9] <- exp(theta[9])/(1+exp(theta[9]))
 }"
 
 model_data3 <- list(Ni = Ni,
@@ -189,16 +186,16 @@ model3 <- jags.model(textConnection(model_texto3),
                     ,n.adapt = 500)
 
 mcmc_samples3= coda.samples( model3 , 
-                            variable.names=c("pi")
+                            variable.names=c("pi","theta","yi")
                             ,n.iter=6000 )
 
-sink()
+
 ```
 
-```{r}
+```{r,fig.width=9, fig.height=5}
 #| echo: false
 plot(density(mcmc_samples3[[1]][,1]),ylim=c(0,80)
-     ,xlim=c(0.39,0.55))
+     ,xlim=c(0.39,0.55),main = "Densidades de P")
 lines(density(mcmc_samples3[[1]][,2]), col = "red")
 lines(density(mcmc_samples3[[1]][,3]), col = "#0000CD")
 lines(density(mcmc_samples3[[1]][,4]), col = "burlywood3")
@@ -213,10 +210,62 @@ wwww hacer tabla de quantiles o cosas que muestren varianza
 
 ## Pregunta 4
 
-##### a) 
+##### a)
 
-hacer tabla de comparación de estimaciones de $\theta_t$ por modelo
+La siguiente tabla muestra las estimaciones de $\theta_t$ para cada modelo.
+
+| $$   
+ t     
+ $$    | Modelo $\theta_t$ independientes | Modelo $\theta_t$ identicos | Modelo $\theta_t$ dependiente de$\theta_{t-1}$ |
+|------|----------------------------------|-----------------------------|------------------------------------------------|
+| 1999 | -0.07                            | -0.18                       | -0.16                                          |
+| 2000 | -0.09                            | -0.18                       | -0.16                                          |
+| 2001 | -0.08                            | -0.18                       | -0.16                                          |
+| 2002 | -0.12                            | -0.18                       | -0.18                                          |
+| 2003 | -0.13                            | -0.18                       | -0.21                                          |
+| 2004 | -0.14                            | -0.18                       | -0.21                                          |
+| 2005 | -0.12                            | -0.18                       | -0.19                                          |
+| 2006 | -0.06                            | -0.18                       | -0.17                                          |
+
+hacer comentariossssssssssssssssssssssssssssssssssss
 
 ##### b)
 
-##### c) 
+La siguiente tabla muestra las predicciones puntuales de $y_{2007}$ y $\pi_{2007}$
+
+| Predicción     | Modelo $\theta_t$ independientes | Modelo $\theta_t$ identicos | Modelo $\theta_t$ dependiente de$\theta_{t-1}$ |
+|------------------|-------------------|-------------------|------------------|
+| $$             
+ \hat{y}_{2007}  
+ $$              | 659                              | 659                         | 663                                            |
+| $$             
+ \hat\pi_{2007}  
+ $$              | 0.454                            | 0.454                       | 0.457                                          |
+
+Y ahora se tienen los intervalos de credibilidad de cada modelo.
+
+```{r}
+#| echo: false
+library(coda)
+library(ggplot2)
+samples_yi9_model1 <- as.array(mcmc_samples)[,"yi[9]"]
+samples_yi9_model2 <- as.array(mcmc_samples2)[,"yi[9]"]
+samples_yi9_model3 <- as.array(mcmc_samples3)[,"yi[9]"]
+# Create a data frame for plotting
+df <- data.frame(
+  Model = c("thetas indep", "thetas ident", "theta dep.anterior"),
+  Estimate = c(mean(samples_yi9_model1), mean(samples_yi9_model2), mean(samples_yi9_model3)),
+  Lower = c(HPDinterval(as.mcmc(samples_yi9_model1))[1], HPDinterval(as.mcmc(samples_yi9_model2))[1], HPDinterval(as.mcmc(samples_yi9_model3))[1]),
+  Upper = c(HPDinterval(as.mcmc(samples_yi9_model1))[2], HPDinterval(as.mcmc(samples_yi9_model2))[2], HPDinterval(as.mcmc(samples_yi9_model3))[2])
+)
+
+# Create the plot
+ggplot(df, aes(y = Model)) +
+  geom_segment(aes(x = Lower, xend = Upper, yend = Model), color = "red") +
+  geom_point(aes(x = Estimate)) +labs(x = "Cantidad de exitos") +
+  theme_minimal()+  theme(axis.title.y = element_blank()) +
+  scale_x_continuous(limits = c(590, 730),breaks = seq(from = 600, to = 730, by = 40))
+
+```
+
+##### c)
