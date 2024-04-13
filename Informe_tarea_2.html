@@ -118,21 +118,70 @@ Tarea 2<br>
 <p>Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de <span class="math inline">\(\mu_\theta\)</span>, de tal forma que si A <span class="math inline">\(\approx 0\)</span>, este parametro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo <span class="math inline">\(\theta_t\)</span> esten centrados muy cercas entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=100, esto llevaria a que <span class="math inline">\(\mu_\theta\)</span> tenga una mayor varianza y esto probocaría que los valores de cada <span class="math inline">\(\theta_t\)</span> no esten de cierta forma trasladados diferentemente los unos con los otros.</p>
 <p>Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de <span class="math inline">\(\theta_t\)</span>, por lo que si B tiene valores cercanos a 0, implicaria que las distribuciones de <span class="math inline">\(\theta_t\)</span> tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podria provocar que las varianzas de <span class="math inline">\(\theta_t\)</span> sean muy grandes.</p>
 <p>Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, <span class="math inline">\(\mu_\theta\)</span> tenga suficientemente flexibilidad al momento de ser simulado, al igual que para <span class="math inline">\(\sigma^2_\theta\)</span> , el valor que se da para B, implica que el maximo valor de <span class="math inline">\(\sigma^2_\theta\)</span> es 100, lo cual es una varianza bastante significativa en este contexto para <span class="math inline">\(\theta_t\)</span> y de esta forma con los valores seleccionados se logran prioris vagas.</p>
+<p>El modelo ajustado se encuentra en el codigo de R</p>
 </section>
 <section id="pregunta-2" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-2">Pregunta 2</h2>
 <p>Cuando se ajusta primero para el modelo con <span class="math inline">\(\theta_t\)</span> identicos, se tiene que la densidad de <span class="math inline">\(\pi_t\)</span> a posteriori es…</p>
-<p>y para el caso en que los <span class="math inline">\(\theta_t\)</span> son independientes, las densidades para <span class="math inline">\(\pi_t\)</span> son….</p>
-<p>El siguiente gráfico une las densidades mencionadas…</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>y para el caso en que los <span class="math inline">\(\theta_t\)</span> son independientes, las densidades para cada <span class="math inline">\(\pi_t\)</span> son</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>####poner leyenda</p>
+<p>El siguiente gráfico une las densidades mencionadas.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Se puede apreciar que….</p>
 </section>
 <section id="pregunta-3" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-3">Pregunta 3</h2>
-<p>En este caso, el valor de C y D influyen en que….</p>
+<p>En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá <span class="math inline">\(\theta_{1999}\)</span> en este modelo. Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de <span class="math inline">\(\theta_t\)</span>. Para valores de C y D cercanos a 0, implica que las densidades de todos los <span class="math inline">\(\theta_t\)</span> sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, si C y D toman valores muy grandes, causaria que posiblemente todos los <span class="math inline">\(\theta_t\)</span> sean muy distintos entre si.</p>
+<p>Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de <span class="math inline">\(\theta_{1999}\)</span> y para D tambien logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>wwww hacer tabla de quantiles o cosas que muestren varianza</p>
 </section>
 <section id="pregunta-4" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-4">Pregunta 4</h2>
-<p>Se comparan todos los modelos</p>
+<section id="a" class="level5">
+<h5 class="anchored" data-anchor-id="a">a)</h5>
+<p>hacer tabla de comparación de estimaciones de <span class="math inline">\(\theta_t\)</span> por modelo</p>
+</section>
+<section id="b" class="level5">
+<h5 class="anchored" data-anchor-id="b">b)</h5>
+</section>
+<section id="c" class="level5">
+<h5 class="anchored" data-anchor-id="c">c)</h5>
+</section>
 </section>
 
 </main>

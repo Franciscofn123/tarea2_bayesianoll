@@ -5,10 +5,9 @@ library(rjags)
 library(readxl)
 library(bookdown)
 
-pi <-c(46.8,46.4,46.9,45.1,43.8,43.3,45.0,47.2)
 Ni <- c(1183,1510,1597,1924,1178,1324,2173,845)
 yi <- c(554,701,749,868,516,573,978,399)
-#priori A=5 y B=10
+#priori A=10 y B=10
 model_texto <- "model{
     #hiperparametros
     #A es la varianza de mu
@@ -79,7 +78,7 @@ mcmc_samples2= coda.samples(model2 ,
                            variable.names=c("pi")
                            ,n.iter=6000 )
 summary(mcmc_samples2)
-plot(density(mcmc_samples2[[1]][,1]))
+plot(density(mcmc_samples2[[1]]))
 lines(density(mcmc_samples[[1]][,2]), col = "red",lty=2,lwd=0.5)
 lines(density(mcmc_samples[[1]][,3]), col = "#0000CD",lty=2,lwd=0.5)
 lines(density(mcmc_samples[[1]][,4]), col = "burlywood3",lty=2,lwd=0.5)
@@ -97,8 +96,8 @@ yi <- c(554,701,749,868,516,573,978,399)
 model_texto3 <- "model{
     #hiperparametros
     #C es la varianza de theta[1]
-    C <- 0.00000001
-    D <- 0.000000001
+    C <- 10
+    D <- 10
     
     #priori
     theta[1] ~ dnorm(0,1/C)
@@ -124,7 +123,8 @@ mcmc_samples3= coda.samples( model3 ,
                             ,n.iter=6000 )
 summary(mcmc_samples3)
 
-plot(density(mcmc_samples3[[1]][,1]))
+plot(density(mcmc_samples3[[1]][,1]),ylim=c(0,80)
+     ,xlim=c(0.39,0.55))
 lines(density(mcmc_samples3[[1]][,2]), col = "red")
 lines(density(mcmc_samples3[[1]][,3]), col = "#0000CD")
 lines(density(mcmc_samples3[[1]][,4]), col = "burlywood3")
@@ -133,7 +133,7 @@ lines(density(mcmc_samples3[[1]][,6]), col = "#458B00")
 lines(density(mcmc_samples3[[1]][,7]), col = "deeppink1")
 lines(density(mcmc_samples3[[1]][,8]), col = "indianred1")
 
-
+# a medida que pasa el tiempo la varianza va disminuyendo
 
 
 #4----

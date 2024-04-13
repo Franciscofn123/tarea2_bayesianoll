@@ -20,20 +20,203 @@ Para el caso de B, este valor se encarga de especificar hasta que valor puede al
 
 Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, $\mu_\theta$ tenga suficientemente flexibilidad al momento de ser simulado, al igual que para $\sigma^2_\theta$ , el valor que se da para B, implica que el maximo valor de $\sigma^2_\theta$ es 100, lo cual es una varianza bastante significativa en este contexto para $\theta_t$ y de esta forma con los valores seleccionados se logran prioris vagas.
 
+El modelo ajustado se encuentra en el codigo de R
+
 ## Pregunta 2
 
 Cuando se ajusta primero para el modelo con $\theta_t$ identicos, se tiene que la densidad de $\pi_t$ a posteriori es...
 
-y para el caso en que los $\theta_t$ son independientes, las densidades para $\pi_t$ son....
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+#| echo: false
+Ni <- c(1183,1510,1597,1924,1178,1324,2173,845)
+yi <- c(554,701,749,868,516,573,978,399)
+library(rjags)
 
-El siguiente gráfico une las densidades mencionadas...
+temp_file <- tempfile()
+sink(temp_file) 
+model_texto2 <- "model{
+    #hiperparametros
+    #A es la varianza de mu
+    A <- 10
+    B <- 10
+    
+    #priori
+    mu ~ dnorm(0,1/A)
+    sigma ~ dunif(0,B)
+    
+    for (i in 1:N){
+       yi[i] ~ dbin(pi, Ni[i]) 
+    }
+    theta~dnorm(mu,1/sigma^2)
+    pi<- exp(theta)/(1+exp(theta))
+}"
+
+model_data2 <- list(Ni = Ni,
+                   yi = yi, N = 8)
+
+model2 <- jags.model(textConnection(model_texto2), 
+                    data = model_data2,n.chains = 1
+                    ,n.adapt = 500)
+
+mcmc_samples2= coda.samples(model2 , 
+                           variable.names=c("pi")
+                           ,n.iter=6000 )
+
+sink()
+```
+
+```{r}
+#| echo: false
+plot(density(mcmc_samples2[[1]]),main = "Densidad de P")
+```
+
+y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+#| echo: false
+
+temp_file <- tempfile()
+sink(temp_file) 
+model_texto <- "model{
+    #hiperparametros
+    #A es la varianza de mu
+    A <- 10
+    B <- 10
+    
+    #priori
+    mu ~ dnorm(0,1/A)
+    sigma ~ dunif(0,B)
+    
+    for (i in 1:N){
+       yi[i] ~ dbin(pi[i], Ni[i]) 
+       theta[i]~dnorm(mu,1/sigma^2)
+       pi[i] <- exp(theta[i])/(1+exp(theta[i]))
+    }
+
+}"
+
+model_data <- list(Ni = Ni,
+                   yi = yi, N = 8)
+
+model <- jags.model(textConnection(model_texto), 
+                     data = model_data,n.chains = 1
+                     ,n.adapt = 500)
+
+mcmc_samples= coda.samples(model , 
+                             variable.names=c("pi")
+                             ,n.iter=6000 )
+
+sink()
+```
+
+```{r}
+#| echo: false
+plot(density(mcmc_samples[[1]][,1]),xlim=c(0.395,0.55)
+     ,ylim=c(0,60),main = "Densidades de cada Pi")
+lines(density(mcmc_samples[[1]][,2]), col = "red")
+lines(density(mcmc_samples[[1]][,3]), col = "#0000CD")
+lines(density(mcmc_samples[[1]][,4]), col = "burlywood3")
+lines(density(mcmc_samples[[1]][,5]), col = "chocolate2")
+lines(density(mcmc_samples[[1]][,6]), col = "#458B00")
+lines(density(mcmc_samples[[1]][,7]), col = "deeppink1")
+lines(density(mcmc_samples[[1]][,8]), col = "indianred1")
+
+```
+
+####poner leyenda
+
+El siguiente gráfico une las densidades mencionadas.
+
+```{r}
+#| echo: false
+
+plot(density(mcmc_samples2[[1]]),xlim=c(0.4,0.51))
+lines(density(mcmc_samples[[1]][,2]), col = "red",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,3]), col = "#0000CD",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,4]), col = "burlywood3",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,5]), col = "chocolate2",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,6]), col = "#458B00",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,7]), col = "deeppink1",lty=2,lwd=0.5)
+lines(density(mcmc_samples[[1]][,8]), col = "indianred1",lty=2,lwd=0.5)
+
+```
 
 Se puede apreciar que....
 
 ## Pregunta 3
 
-En este caso, el valor de C y D influyen en que....
+En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá $\theta_{1999}$ en este modelo. Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de $\theta_t$. Para valores de C y D cercanos a 0, implica que las densidades de todos los $\theta_t$ sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, si C y D toman valores muy grandes, causaria que posiblemente todos los $\theta_t$ sean muy distintos entre si.
+
+Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de $\theta_{1999}$ y para D tambien logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+#| echo: false
+
+temp_file <- tempfile()
+sink(temp_file) 
+model_texto3 <- "model{
+    #hiperparametros
+    #C es la varianza de theta[1]
+    C <- 10
+    D <- 10
+    
+    #priori
+    theta[1] ~ dnorm(0,1/C)
+    pi[1] <- exp(theta[1])/(1+exp(theta[1]))
+    sigma ~ dunif(0,D)
+    
+    for (i in 2:N){
+       yi[i] ~ dbin(pi[i], Ni[i]) 
+       theta[i]~dnorm(theta[i-1],1/sigma^2)
+       pi[i] <- exp(theta[i])/(1+exp(theta[i]))
+    }
+}"
+
+model_data3 <- list(Ni = Ni,
+                   yi = yi, N = 8)
+
+model3 <- jags.model(textConnection(model_texto3), 
+                    data = model_data3,n.chains = 1
+                    ,n.adapt = 500)
+
+mcmc_samples3= coda.samples( model3 , 
+                            variable.names=c("pi")
+                            ,n.iter=6000 )
+
+sink()
+```
+
+```{r}
+#| echo: false
+plot(density(mcmc_samples3[[1]][,1]),ylim=c(0,80)
+     ,xlim=c(0.39,0.55))
+lines(density(mcmc_samples3[[1]][,2]), col = "red")
+lines(density(mcmc_samples3[[1]][,3]), col = "#0000CD")
+lines(density(mcmc_samples3[[1]][,4]), col = "burlywood3")
+lines(density(mcmc_samples3[[1]][,5]), col = "chocolate2")
+lines(density(mcmc_samples3[[1]][,6]), col = "#458B00")
+lines(density(mcmc_samples3[[1]][,7]), col = "deeppink1")
+lines(density(mcmc_samples3[[1]][,8]), col = "indianred1")
+
+```
+
+wwww hacer tabla de quantiles o cosas que muestren varianza
 
 ## Pregunta 4
 
-Se comparan todos los modelos
+##### a) 
+
+hacer tabla de comparación de estimaciones de $\theta_t$ por modelo
+
+##### b)
+
+##### c) 
