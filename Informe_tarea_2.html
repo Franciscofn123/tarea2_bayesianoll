@@ -115,96 +115,96 @@ Tarea 2<br>
 
 <section id="pregunta-1" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-1">Pregunta 1</h2>
-<p>Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de <span class="math inline">\(\mu_\theta\)</span>, de tal forma que si <span class="math inline">\(A\approx 0\)</span>, este parámetro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo <span class="math inline">\(\theta_t\)</span> esten centrados muy cerca entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=10000, esto llevaria a que <span class="math inline">\(\mu_\theta\)</span> tenga una mayor varianza y esto probocaría que los valores de cada <span class="math inline">\(\theta_t\)</span> esten de cierta forma trasladados diferentemente los unos con los otros.</p>
-<p>Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de <span class="math inline">\(\theta_t\)</span>, por lo que si B tiene valores cercanos a 0, implicaría que las distribuciones de <span class="math inline">\(\theta_t\)</span> tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podria provocar que las varianzas de <span class="math inline">\(\theta_t\)</span> sean muy grandes y distintas entre si.</p>
-<p>Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, <span class="math inline">\(\mu_\theta\)</span> tiene suficientemente flexibilidad al momento de ser simulado sin ser excesiovo, al igual que para <span class="math inline">\(\sigma^2_\theta\)</span> ,de hecho, para el valor que se da para B, implica que el maximo valor de <span class="math inline">\(\sigma^2_\theta\)</span> es 100, lo cual es una varianza bastante grande en este contexto para <span class="math inline">\(\theta_t\)</span>.</p>
+<p>Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de <span class="math inline">\(\mu_\theta\)</span>, de tal forma que si <span class="math inline">\(A\approx 0\)</span>, este parámetro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo <span class="math inline">\(\theta_t\)</span> esten centrados muy cerca entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=10000, esto llevaria a que <span class="math inline">\(\mu_\theta\)</span> tenga una mayor varianza y esto provocaría que los valores de cada <span class="math inline">\(\theta_t\)</span> se encuentren trasladados diferentemente los unos con los otros.</p>
+<p>Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de <span class="math inline">\(\theta_t\)</span>, por lo que si B tiene valores cercanos a 0, implicaría que las distribuciones de <span class="math inline">\(\theta_t\)</span> tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podría provocar que las varianzas de <span class="math inline">\(\theta_t\)</span> sean muy grandes y distintas entre si.</p>
+<p>Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, <span class="math inline">\(\mu_\theta\)</span> tiene suficientemente flexibilidad al momento de ser simulado sin ser excesivo, al igual que para <span class="math inline">\(\sigma^2_\theta\)</span> ,de hecho, para el valor que se da para B, implica que el maximo valor de <span class="math inline">\(\sigma^2_\theta\)</span> es 100, lo cual es una varianza bastante grande para este contexto</p>
 <p>(El modelo ajustado se encuentra en el código de R)</p>
 </section>
 <section id="pregunta-2" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-2">Pregunta 2</h2>
-<p>Cuando se ajusta el modelo con <span class="math inline">\(\theta_t\)</span> identicos, se tiene que la densidad de <span class="math inline">\(\pi_t\)</span> a posteriori y su traceplot son.</p>
-<div class="cell">
+<p>Cuando se ajusta el modelo con <span class="math inline">\(\theta_t\)</span> idénticos, se tiene que la densidad de <span class="math inline">\(\pi_t\)</span> a posteriori y su traceplot son.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>En este modelo, como los <span class="math inline">\(\theta_t\)</span> son identicos, tambien se puede ver como que hay un solo <span class="math inline">\(\theta_t\)</span> para todos los años, es por eso que en el gráfico solo se ve la densidad de un parámetro <span class="math inline">\(\pi_t\)</span>.</p>
-<p>Es posible ver que la densidad de <span class="math inline">\(\pi_t\)</span> tiene la mayoría de su masa entre 0.45 y 0.46, por lo que se puede decir que, en un partido de basquetbol , donde se tiene el supuesto en que Kobe bryant juega siempre con la misma eficiencia durante todos lo años, la probabilidad de que convierta un punto cuando él lanza, esta aproximadamente cerca de 0.455.</p>
-<p>Por otro lado, el traceplot no indica que el modelo convergió.</p>
-<p>y para el caso en que los <span class="math inline">\(\theta_t\)</span> son independientes, las densidades para cada <span class="math inline">\(\pi_t\)</span> son.</p>
-<div class="cell">
+<p>En este modelo, como los <span class="math inline">\(\theta_t\)</span> son idénticos, también se puede ver como que hay un solo <span class="math inline">\(\theta_t\)</span> para todos los años, es por eso que en el gráfico solo se ve la densidad de un parámetro <span class="math inline">\(\pi_t\)</span>.</p>
+<p>Es posible ver que la densidad de <span class="math inline">\(\pi_t\)</span> tiene la mayoría de su masa entre 0.45 y 0.46, por lo que se puede decir que, en un partido de basquetbol , donde se tiene el supuesto en que Kobe Bryant juega siempre con la misma eficiencia durante todos lo años, la probabilidad de que convierta un punto cuando él lanza, esta aproximadamente cerca de 0.455.</p>
+<p>Por otro lado, el traceplot indica que el modelo convergió correctamente.</p>
+<p>Y para el caso en que los <span class="math inline">\(\theta_t\)</span> son independientes, las densidades para cada <span class="math inline">\(\pi_t\)</span> son.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>y sus traceplots.</p>
-<div class="cell">
+<p>Y sus traceplots.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>El siguiente gráfico muestra las densidades de los <span class="math inline">\(\pi_t\)</span> para el modelo con <span class="math inline">\(\theta_t\)</span> unico y <span class="math inline">\(\theta_t\)</span> independientes.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Se puede apreciar que cuando se ocupa un modelo con los <span class="math inline">\(\theta_t\)</span> identicos, el parametro <span class="math inline">\(\pi_t\)</span> tiene una menor variabilidad, en comparación a los que fueron generados con el modelo de <span class="math inline">\(\theta_t\)</span> independientes. Pero de todas formas, todas las densidades estan centradas en valores cercanos de 0.45.</p>
+<p>Se puede apreciar que cuando se ocupa un modelo con los <span class="math inline">\(\theta_t\)</span> idénticos, el parámetro <span class="math inline">\(\pi_t\)</span> tiene una menor variabilidad, en comparación a los que fueron generados con el modelo de <span class="math inline">\(\theta_t\)</span> independientes. Pero de todas formas, todas las densidades estan centradas en valores cercanos de 0.45.</p>
 </section>
 <section id="pregunta-3" class="level2">
 <h2 class="anchored" data-anchor-id="pregunta-3">Pregunta 3</h2>
-<p>En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá <span class="math inline">\(\theta_{1999}\)</span> en este modelo. es por ello que si C es muy cercano de 0, haria que <span class="math inline">\(\theta_{1999}\)</span> este tambien muy cercano a 0, y de la misma manera, los <span class="math inline">\(\theta_t\)</span> estarian aproximadamente centrados en 0. por el contrario, si C toma valores exageradamente grandes, podria provocar que <span class="math inline">\(\theta_{1999}\)</span> tenga una media ubicada en cualquier ubicación de los reales, y de esta forma, los <span class="math inline">\(\theta_{t}\)</span> estaria centrados aproximadamente en <span class="math inline">\(\theta_{1999}\)</span>.</p>
-<p>Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de <span class="math inline">\(\theta_t\)</span>. D cercanos a 0, implica que las densidades de todos los <span class="math inline">\(\theta_t\)</span> sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, D toman valores muy grandes, causaria que posiblemente todos los <span class="math inline">\(\theta_t\)</span> tengan muy alta varianza.</p>
-<p>Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de <span class="math inline">\(\theta_{1999}\)</span> y para D tambien logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.</p>
-<div class="cell">
+<p>En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá <span class="math inline">\(\theta_{1999}\)</span> en este modelo. es por ello que si C es muy cercano de 0, haria que <span class="math inline">\(\theta_{1999}\)</span> este también muy cercano a 0, y de la misma manera, los <span class="math inline">\(\theta_t\)</span> estarian aproximadamente centrados en 0. por el contrario, si C toma valores exageradamente grandes, podría provocar que <span class="math inline">\(\theta_{1999}\)</span> tenga una media ubicada en cualquier ubicación de los reales, y de esta forma, los <span class="math inline">\(\theta_{t}\)</span> estaria centrados aproximadamente en <span class="math inline">\(\theta_{1999}\)</span>.</p>
+<p>Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de <span class="math inline">\(\theta_t\)</span>. D cercanos a 0, implica que las densidades de todos los <span class="math inline">\(\theta_t\)</span> sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, si D toma valores muy grandes, causaria que posiblemente todos los <span class="math inline">\(\theta_t\)</span> tengan muy alta varianza.</p>
+<p>Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de <span class="math inline">\(\theta_{1999}\)</span> y para D también logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>En el gráfico se puede ver que las densidades de estos <span class="math inline">\(\pi_t\)</span> estan centradas a valores cercanos de 0.45, al igual que en los modelos anteriores. A continuación, se muestran los traceplots de las densidades de <span class="math inline">\(\pi_t\)</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
@@ -229,7 +229,7 @@ Tarea 2<br>
        t                 
        \]</span></th>
 <th>Modelo <span class="math inline">\(\theta_t\)</span> independientes</th>
-<th>Modelo <span class="math inline">\(\theta_t\)</span> identicos</th>
+<th>Modelo <span class="math inline">\(\theta_t\)</span> idénticos</th>
 <th>Modelo <span class="math inline">\(\theta_t\)</span> dependiente de <span class="math inline">\(\theta_{t-1}\)</span></th>
 </tr>
 </thead>
@@ -300,7 +300,7 @@ Tarea 2<br>
 <tr class="header">
 <th>Predicción</th>
 <th>Modelo <span class="math inline">\(\theta_t\)</span> independientes</th>
-<th>Modelo <span class="math inline">\(\theta_t\)</span> identicos</th>
+<th>Modelo <span class="math inline">\(\theta_t\)</span> idénticos</th>
 <th>Modelo <span class="math inline">\(\theta_t\)</span> dependiente de <span class="math inline">\(\theta_{t-1}\)</span></th>
 </tr>
 </thead>
@@ -324,26 +324,26 @@ Tarea 2<br>
 </tbody>
 </table>
 <p>Y ahora se tienen los intervalos de credibilidad de cada modelo para <span class="math inline">\(y_{2007}\)</span>.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>y para <span class="math inline">\(\pi_{2007}\)</span></p>
-<div class="cell">
+<p>Y para <span class="math inline">\(\pi_{2007}\)</span></p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Informe_tarea_2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="624"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>En ambos gráficos, las medias estan ubicadas en valores cercanos entre si, para todos los modelos, pero la diferencia estan en las varianzas, para el modelo con los <span class="math inline">\(\theta_t\)</span> dependientes de los años anteriores se tiene una gran varianza, mientras que para el caso de un <span class="math inline">\(\theta_t\)</span> unico, se tiene una menor varianza en comparación a los otros modelos.</p>
+<p>En ambos gráficos, las medias estan ubicadas en valores cercanos entre si para todos los modelos, pero la diferencia estan en las varianzas, para el modelo con los <span class="math inline">\(\theta_t\)</span> dependientes de los años anteriores se tiene una gran varianza, mientras que para el caso de un <span class="math inline">\(\theta_t\)</span> unico, se tiene una menor varianza en comparación a los otros modelos.</p>
 </section>
 <section id="c" class="level5">
 <h5 class="anchored" data-anchor-id="c">c)</h5>
@@ -370,7 +370,7 @@ Tarea 2<br>
 </tr>
 </tbody>
 </table>
-<p>Tambien, cuando se calcula el BIC de cada modelo, se tiene la siguente tabla.</p>
+<p>También, cuando se calcula el BIC de cada modelo, se tiene la siguente tabla.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -393,8 +393,8 @@ Tarea 2<br>
 </tr>
 </tbody>
 </table>
-<p>Usando este criterio, tambien se prefiere el modelo 2, puesto que el BIC prioriza los modelos más parsimoniosos.</p>
-<p>Dado los criterios evaluados anteriormente, si se tuviera que elegir un modelo, se eligiriá el modelo con los <span class="math inline">\(\theta_t\)</span> identicos. Otra razón que vale la pena mencionar, es que se llegan a resultados muy similares con los otros modelos y con muchos menos parámetros.</p>
+<p>Usando este criterio, también se prefiere el modelo 2, puesto que el BIC prioriza los modelos más parsimoniosos.</p>
+<p>Dado los criterios evaluados anteriormente, si se tuviera que elegir un modelo, se eligiriá el modelo con los <span class="math inline">\(\theta_t\)</span> idénticos. Otra razón que vale la pena mencionar, es que se llegan a resultados muy similares con los otros modelos y con muchos menos parámetros.</p>
 </section>
 </section>
 

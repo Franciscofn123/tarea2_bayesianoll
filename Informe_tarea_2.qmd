@@ -13,17 +13,17 @@ editor: visual
 
 ## Pregunta 1
 
-Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de $\mu_\theta$, de tal forma que si $A\approx 0$, este parámetro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo $\theta_t$ esten centrados muy cerca entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=10000, esto llevaria a que $\mu_\theta$ tenga una mayor varianza y esto probocaría que los valores de cada $\theta_t$ esten de cierta forma trasladados diferentemente los unos con los otros.
+Dentro de este contexto, el valor de A se encarga de determinar la variabilidad de $\mu_\theta$, de tal forma que si $A\approx 0$, este parámetro en cuestión tendria muy poca variabilidad, lo cual lleva a que todos lo $\theta_t$ esten centrados muy cerca entre si, por otro lado, si A se acerca a un valor más grande, por ejemplo A=10000, esto llevaria a que $\mu_\theta$ tenga una mayor varianza y esto provocaría que los valores de cada $\theta_t$ se encuentren trasladados diferentemente los unos con los otros.
 
-Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de $\theta_t$, por lo que si B tiene valores cercanos a 0, implicaría que las distribuciones de $\theta_t$ tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podria provocar que las varianzas de $\theta_t$ sean muy grandes y distintas entre si.
+Para el caso de B, este valor se encarga de especificar hasta que valor puede alcanzar la desviación estandar de $\theta_t$, por lo que si B tiene valores cercanos a 0, implicaría que las distribuciones de $\theta_t$ tengan muy poca varianza, por el contrario, si B tiene un valor muy grande, podría provocar que las varianzas de $\theta_t$ sean muy grandes y distintas entre si.
 
-Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, $\mu_\theta$ tiene suficientemente flexibilidad al momento de ser simulado sin ser excesiovo, al igual que para $\sigma^2_\theta$ ,de hecho, para el valor que se da para B, implica que el maximo valor de $\sigma^2_\theta$ es 100, lo cual es una varianza bastante grande en este contexto para $\theta_t$.
+Es por ello que se propone un modelo tal que A=10 y B=10. la justificación para el valor de A viene en que, de esta forma, $\mu_\theta$ tiene suficientemente flexibilidad al momento de ser simulado sin ser excesivo, al igual que para $\sigma^2_\theta$ ,de hecho, para el valor que se da para B, implica que el maximo valor de $\sigma^2_\theta$ es 100, lo cual es una varianza bastante grande para este contexto
 
 (El modelo ajustado se encuentra en el código de R)
 
 ## Pregunta 2
 
-Cuando se ajusta el modelo con $\theta_t$ identicos, se tiene que la densidad de $\pi_t$ a posteriori y su traceplot son.
+Cuando se ajusta el modelo con $\theta_t$ idénticos, se tiene que la densidad de $\pi_t$ a posteriori y su traceplot son.
 
 ```{r}
 #| message: false
@@ -111,22 +111,22 @@ mcmc_samples2= coda.samples(model2 ,
                            ,n.iter=10000 )
 ```
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 par(mfrow = c(1, 2))
 plot(density(mcmc_samples2[[1]][,1]),main = "Densidad de P")
 plot(ts(mcmc_samples[[1]][,1]),xlab = "", ylab = "",main="Traceplot de P")
 ```
 
-En este modelo, como los $\theta_t$ son identicos, tambien se puede ver como que hay un solo $\theta_t$ para todos los años, es por eso que en el gráfico solo se ve la densidad de un parámetro $\pi_t$.
+En este modelo, como los $\theta_t$ son idénticos, también se puede ver como que hay un solo $\theta_t$ para todos los años, es por eso que en el gráfico solo se ve la densidad de un parámetro $\pi_t$.
 
-Es posible ver que la densidad de $\pi_t$ tiene la mayoría de su masa entre 0.45 y 0.46, por lo que se puede decir que, en un partido de basquetbol , donde se tiene el supuesto en que Kobe bryant juega siempre con la misma eficiencia durante todos lo años, la probabilidad de que convierta un punto cuando él lanza, esta aproximadamente cerca de 0.455.
+Es posible ver que la densidad de $\pi_t$ tiene la mayoría de su masa entre 0.45 y 0.46, por lo que se puede decir que, en un partido de basquetbol , donde se tiene el supuesto en que Kobe Bryant juega siempre con la misma eficiencia durante todos lo años, la probabilidad de que convierta un punto cuando él lanza, esta aproximadamente cerca de 0.455.
 
-Por otro lado, el traceplot no indica que el modelo convergió.
+Por otro lado, el traceplot indica que el modelo convergió correctamente.
 
-y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son.
+Y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son.
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples[[1]][,1]),xlim=c(0.395,0.525)
      ,ylim=c(0,60),main = "Densidades de cada Pi",col="darkslategray")
@@ -141,9 +141,9 @@ lines(density(mcmc_samples[[1]][,8]), col = "cadetblue3")
 legend(0.51,60,legend=c("P1","P2","P3","P4","P5","P6","P7","P8"),text.col = c("darkslategray","red","#0000CD","burlywood3","chocolate2","#458B00","deeppink1","cadetblue3"),bty="n")
 ```
 
-y sus traceplots.
+Y sus traceplots.
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples[[1]][,1]),xlab = "", ylab = "",main="Traceplot de P_1")
@@ -152,7 +152,7 @@ plot(ts(mcmc_samples[[1]][,3]),xlab = "", ylab = "",main="Traceplot de P_3")
 plot(ts(mcmc_samples[[1]][,4]),xlab = "", ylab = "",main="Traceplot de P_4")
 ```
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples[[1]][,5]),xlab = "", ylab = "",main="Traceplot de P_5")
@@ -164,7 +164,7 @@ plot(ts(mcmc_samples[[1]][,8]),xlab = "", ylab = "",main="Traceplot de P_8")
 
 El siguiente gráfico muestra las densidades de los $\pi_t$ para el modelo con $\theta_t$ unico y $\theta_t$ independientes.
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples2[[1]][,1]),xlim=c(0.4,0.51),
      main="Densidades de Pi, de ambos modelos")
@@ -178,15 +178,15 @@ lines(density(mcmc_samples[[1]][,8]), col = "indianred1",lty=2,lwd=0.5)
 
 ```
 
-Se puede apreciar que cuando se ocupa un modelo con los $\theta_t$ identicos, el parametro $\pi_t$ tiene una menor variabilidad, en comparación a los que fueron generados con el modelo de $\theta_t$ independientes. Pero de todas formas, todas las densidades estan centradas en valores cercanos de 0.45.
+Se puede apreciar que cuando se ocupa un modelo con los $\theta_t$ idénticos, el parámetro $\pi_t$ tiene una menor variabilidad, en comparación a los que fueron generados con el modelo de $\theta_t$ independientes. Pero de todas formas, todas las densidades estan centradas en valores cercanos de 0.45.
 
 ## Pregunta 3
 
-En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá $\theta_{1999}$ en este modelo. es por ello que si C es muy cercano de 0, haria que $\theta_{1999}$ este tambien muy cercano a 0, y de la misma manera, los $\theta_t$ estarian aproximadamente centrados en 0. por el contrario, si C toma valores exageradamente grandes, podria provocar que $\theta_{1999}$ tenga una media ubicada en cualquier ubicación de los reales, y de esta forma, los $\theta_{t}$ estaria centrados aproximadamente en $\theta_{1999}$.
+En este caso, el valor de C es el valor que se encarga de especificar la varianza que tendrá $\theta_{1999}$ en este modelo. es por ello que si C es muy cercano de 0, haria que $\theta_{1999}$ este también muy cercano a 0, y de la misma manera, los $\theta_t$ estarian aproximadamente centrados en 0. por el contrario, si C toma valores exageradamente grandes, podría provocar que $\theta_{1999}$ tenga una media ubicada en cualquier ubicación de los reales, y de esta forma, los $\theta_{t}$ estaria centrados aproximadamente en $\theta_{1999}$.
 
-Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de $\theta_t$. D cercanos a 0, implica que las densidades de todos los $\theta_t$ sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, D toman valores muy grandes, causaria que posiblemente todos los $\theta_t$ tengan muy alta varianza.
+Por otro lado, D especifica el valor máximo de la varianza que puede tomar la distribución de $\theta_t$. D cercanos a 0, implica que las densidades de todos los $\theta_t$ sean muy parecidos entre si, ya que especificarian poca varianza entre cada año, por el contrario, si D toma valores muy grandes, causaria que posiblemente todos los $\theta_t$ tengan muy alta varianza.
 
-Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de $\theta_{1999}$ y para D tambien logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.
+Dicho esto, se opta por usar C=10 y D=10, para el caso de C, le da suficiente libertad a la varianza de $\theta_{1999}$ y para D también logra abordar una amplia varianza sin llegar a ser excesivo, y de esta forma poder tener un equilibrio entre la información de los datos y de las prioris.
 
 ```{r}
 #| message: false
@@ -237,7 +237,7 @@ mcmc_samples3= coda.samples( model3 ,
 
 ```
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples3[[1]][,1]),ylim=c(0,60)
      ,xlim=c(0.39,0.525),main = "Densidades de Pi",col="darkslategray")
@@ -254,7 +254,7 @@ legend(0.51,60,legend=c("P1","P2","P3","P4","P5","P6","P7","P8"),text.col=c("dar
 
 En el gráfico se puede ver que las densidades de estos $\pi_t$ estan centradas a valores cercanos de 0.45, al igual que en los modelos anteriores. A continuación, se muestran los traceplots de las densidades de $\pi_t$
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples3[[1]][,1]),xlab = "", ylab = "",main="Traceplot de P_1")
@@ -264,7 +264,7 @@ plot(ts(mcmc_samples3[[1]][,4]),xlab = "", ylab = "",main="Traceplot de P_4")
 
 ```
 
-```{r,fig.width=9, fig.height=5}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples3[[1]][,5]),xlab = "", ylab = "",main="Traceplot de P_5")
@@ -285,7 +285,7 @@ La siguiente tabla muestra las estimaciones de $\theta_t$ posteriori para cada m
 
 | $$                     
        t                 
-       $$                | Modelo $\theta_t$ independientes | Modelo $\theta_t$ identicos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
+       $$                | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
 |------------------|------------------|------------------|--------------------|
 | 1999                   | -0.16                            | -0.18                       | -0.15                                           |
 | 2000                   | -0.16                            | -0.18                       | -0.15                                           |
@@ -302,7 +302,7 @@ Es posible ver que durante todos los años y para cada modelo, se tuvieron estim
 
 La siguiente tabla muestra las predicciones puntuales de $y_{2007}$ y $\pi_{2007}$
 
-| Predicción                       | Modelo $\theta_t$ independientes | Modelo $\theta_t$ identicos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
+| Predicción                       | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
 |------------------|------------------|------------------|--------------------|
 | $$                               
        \hat{y}_{2007}              
@@ -313,7 +313,7 @@ La siguiente tabla muestra las predicciones puntuales de $y_{2007}$ y $\pi_{2007
 
 Y ahora se tienen los intervalos de credibilidad de cada modelo para $y_{2007}$.
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 library(coda)
 library(ggplot2)
@@ -337,15 +337,15 @@ ggplot(df, aes(y = Model)) +
   geom_point(aes(x = Estimate)) +labs(x = "Cantidad de exitos",
                                       title = "Predicción de tiros convertidos 2007") +
   theme_minimal()+  theme(axis.title.y = element_blank(),
-                          plot.title = element_text(hjust = 0.5)) +
+                          plot.title = element_text(hjust = 0.4),axis.title.x=element_text(hjust = 0.4)) +
   scale_x_continuous(limits = c(590, 750),breaks = seq(from = 600, to = 730, by = 40))
 
 
 ```
 
-y para $\pi_{2007}$
+Y para $\pi_{2007}$
 
-```{r,fig.width=8, fig.height=4}
+```{r,fig.width=6.5, fig.height=4,fig.align="center"}
 #| echo: false
 library(coda)
 library(ggplot2)
@@ -365,12 +365,12 @@ ggplot(df, aes(y = Model)) +
   geom_segment(aes(x = Lower, xend = Upper, yend = Model), color = "red") +
   geom_point(aes(x = Estimate)) +labs(x = "Probabilidad de exito",
                                       title = "Predicción de probabilidad de encestar 2007") +
-  theme_minimal()+  theme(axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5))
+  theme_minimal()+  theme(axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5),axis.title.x=element_text(hjust = 0.4))
 
 
 ```
 
-En ambos gráficos, las medias estan ubicadas en valores cercanos entre si, para todos los modelos, pero la diferencia estan en las varianzas, para el modelo con los $\theta_t$ dependientes de los años anteriores se tiene una gran varianza, mientras que para el caso de un $\theta_t$ unico, se tiene una menor varianza en comparación a los otros modelos.
+En ambos gráficos, las medias estan ubicadas en valores cercanos entre si para todos los modelos, pero la diferencia estan en las varianzas, para el modelo con los $\theta_t$ dependientes de los años anteriores se tiene una gran varianza, mientras que para el caso de un $\theta_t$ unico, se tiene una menor varianza en comparación a los otros modelos.
 
 ##### c)
 
@@ -382,7 +382,7 @@ Usando WAIC, el modelo con menor valor en este caso es el modelo 2, es decir el 
 | Model2 | 71.5 |
 | Model3 | 78.1 |
 
-Tambien, cuando se calcula el BIC de cada modelo, se tiene la siguente tabla.
+También, cuando se calcula el BIC de cada modelo, se tiene la siguente tabla.
 
 | Modelo | BIC    |
 |--------|--------|
@@ -390,6 +390,6 @@ Tambien, cuando se calcula el BIC de cada modelo, se tiene la siguente tabla.
 | Model2 | 104.36 |
 | Model3 | 171.41 |
 
-Usando este criterio, tambien se prefiere el modelo 2, puesto que el BIC prioriza los modelos más parsimoniosos.
+Usando este criterio, también se prefiere el modelo 2, puesto que el BIC prioriza los modelos más parsimoniosos.
 
-Dado los criterios evaluados anteriormente, si se tuviera que elegir un modelo, se eligiriá el modelo con los $\theta_t$ identicos. Otra razón que vale la pena mencionar, es que se llegan a resultados muy similares con los otros modelos y con muchos menos parámetros.
+Dado los criterios evaluados anteriormente, si se tuviera que elegir un modelo, se eligiriá el modelo con los $\theta_t$ idénticos. Otra razón que vale la pena mencionar, es que se llegan a resultados muy similares con los otros modelos y con muchos menos parámetros.
