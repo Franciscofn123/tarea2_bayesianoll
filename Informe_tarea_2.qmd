@@ -1,14 +1,9 @@
 ---
-title: "<center>Tarea 2</center>"
-author: "Francisco Fernández"
-format: 
-  html:
-    toc: true  
-    toc-title: "Ítems"
-theme:
-  light: flatly
-  dark: darkly
+title: "Tarea 2-Métodos Bayesianos II"
+author: Francisco Fernández
+format: pdf
 editor: visual
+theme: default
 ---
 
 ## Pregunta 1
@@ -111,7 +106,7 @@ mcmc_samples2= coda.samples(model2 ,
                            ,n.iter=10000 )
 ```
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 par(mfrow = c(1, 2))
 plot(density(mcmc_samples2[[1]][,1]),main = "Densidad de P")
@@ -126,7 +121,7 @@ Por otro lado, el traceplot indica que el modelo convergió correctamente.
 
 Y para el caso en que los $\theta_t$ son independientes, las densidades para cada $\pi_t$ son.
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples[[1]][,1]),xlim=c(0.395,0.525)
      ,ylim=c(0,60),main = "Densidades de cada Pi",col="darkslategray")
@@ -143,7 +138,7 @@ legend(0.51,60,legend=c("P1","P2","P3","P4","P5","P6","P7","P8"),text.col = c("d
 
 Y sus traceplots.
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples[[1]][,1]),xlab = "", ylab = "",main="Traceplot de P_1")
@@ -164,7 +159,7 @@ plot(ts(mcmc_samples[[1]][,8]),xlab = "", ylab = "",main="Traceplot de P_8")
 
 El siguiente gráfico muestra las densidades de los $\pi_t$ para el modelo con $\theta_t$ unico y $\theta_t$ independientes.
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples2[[1]][,1]),xlim=c(0.4,0.51),
      main="Densidades de Pi, de ambos modelos")
@@ -237,7 +232,7 @@ mcmc_samples3= coda.samples( model3 ,
 
 ```
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 plot(density(mcmc_samples3[[1]][,1]),ylim=c(0,60)
      ,xlim=c(0.39,0.525),main = "Densidades de Pi",col="darkslategray")
@@ -254,7 +249,7 @@ legend(0.51,60,legend=c("P1","P2","P3","P4","P5","P6","P7","P8"),text.col=c("dar
 
 En el gráfico se puede ver que las densidades de estos $\pi_t$ estan centradas a valores cercanos de 0.45, al igual que en los modelos anteriores. A continuación, se muestran los traceplots de las densidades de $\pi_t$
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples3[[1]][,1]),xlab = "", ylab = "",main="Traceplot de P_1")
@@ -264,7 +259,7 @@ plot(ts(mcmc_samples3[[1]][,4]),xlab = "", ylab = "",main="Traceplot de P_4")
 
 ```
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 par(mfrow = c(2, 2))
 plot(ts(mcmc_samples3[[1]][,5]),xlab = "", ylab = "",main="Traceplot de P_5")
@@ -283,18 +278,18 @@ Como los traceplots se comportan como un ruido blanco, se puede decir que lo val
 
 La siguiente tabla muestra las estimaciones de $\theta_t$ posteriori para cada modelo.
 
-| $$                     
-       t                 
-       $$                | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
-|------------------|------------------|------------------|--------------------|
-| 1999                   | -0.16                            | -0.18                       | -0.15                                           |
-| 2000                   | -0.16                            | -0.18                       | -0.15                                           |
-| 2001                   | -0.16                            | -0.18                       | -0.15                                           |
-| 2002                   | -0.18                            | -0.18                       | -0.19                                           |
-| 2003                   | -0.19                            | -0.18                       | -0.21                                           |
-| 2004                   | -0.20                            | -0.18                       | -0.22                                           |
-| 2005                   | -0.18                            | -0.18                       | -0.19                                           |
-| 2006                   | -0.16                            | -0.18                       | -0.16                                           |
+| $$                        
+        t                   
+        $$                  | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
+|------------------|------------------|------------------|-------------------|
+| 1999                      | -0.16                            | -0.18                       | -0.15                                           |
+| 2000                      | -0.16                            | -0.18                       | -0.15                                           |
+| 2001                      | -0.16                            | -0.18                       | -0.15                                           |
+| 2002                      | -0.18                            | -0.18                       | -0.19                                           |
+| 2003                      | -0.19                            | -0.18                       | -0.21                                           |
+| 2004                      | -0.20                            | -0.18                       | -0.22                                           |
+| 2005                      | -0.18                            | -0.18                       | -0.19                                           |
+| 2006                      | -0.16                            | -0.18                       | -0.16                                           |
 
 Es posible ver que durante todos los años y para cada modelo, se tuvieron estimaciones de $\theta_t$ muy parecidos. Por lo que se puede decir que para cada modelo se obtuvieron casi los mismo resultados.
 
@@ -302,18 +297,18 @@ Es posible ver que durante todos los años y para cada modelo, se tuvieron estim
 
 La siguiente tabla muestra las predicciones puntuales de $y_{2007}$ y $\pi_{2007}$
 
-| Predicción                       | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
-|------------------|------------------|------------------|--------------------|
-| $$                               
-       \hat{y}_{2007}              
-       $$                          | 660                              | 659                         | 663                                             |
-| $$                               
-       \hat\pi_{2007}              
-       $$                          | 0.454                            | 0.454                       | 0.457                                           |
+| Predicción                          | Modelo $\theta_t$ independientes | Modelo $\theta_t$ idénticos | Modelo $\theta_t$ dependiente de $\theta_{t-1}$ |
+|------------------|------------------|------------------|-------------------|
+| $$                                  
+        \hat{y}_{2007}                
+        $$                            | 660                              | 659                         | 663                                             |
+| $$                                  
+        \hat\pi_{2007}                
+        $$                            | 0.454                            | 0.454                       | 0.457                                           |
 
 Y ahora se tienen los intervalos de credibilidad de cada modelo para $y_{2007}$.
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 library(coda)
 library(ggplot2)
@@ -345,7 +340,7 @@ ggplot(df, aes(y = Model)) +
 
 Y para $\pi_{2007}$
 
-```{r,fig.width=6.5, fig.height=4,fig.align="center"}
+```{r,fig.width=5.5, fig.height=3.5,fig.align="center"}
 #| echo: false
 library(coda)
 library(ggplot2)

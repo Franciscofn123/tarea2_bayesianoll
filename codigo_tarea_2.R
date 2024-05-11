@@ -1,5 +1,5 @@
 #codigos tarea 2
-set.seed(2)
+
 library(rjags)
 library(coda)
 library(readxl)
@@ -248,13 +248,13 @@ ggplot(df, aes(y = Model)) +
 
 library(rjags)
 ##c----
-
+#waic
 suppressWarnings(waic(as.matrix(mcmc_samples[[1]][,19:26])))
 suppressWarnings(waic(as.matrix(mcmc_samples2[[1]][,3:10])))
 suppressWarnings(waic(as.matrix(mcmc_samples3[[1]][,19:26])))
 
-
-
+#bic= -2*log_ver + parametros*log(n)
+#n=80000 pues, en los 8 años de analisis se hicieron 10000 iteraciones
 logLikelihood1 <- sum(colMeans(mcmc_samples[[1]][,19:26]))
 
 BIC_value1 <- -2 * logLikelihood1 + 10 * log(80000)
